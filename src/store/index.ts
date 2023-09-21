@@ -1,5 +1,8 @@
-import { createStore, combineReducers } from "redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import modalReducer from "./reducers/modalReducer";
+import thunk from "redux-thunk";
+
+const middlewares = [thunk];
 
 const rootReducer = combineReducers({
   modals: modalReducer,
@@ -7,6 +10,6 @@ const rootReducer = combineReducers({
 
 export type RootState = ReturnType<typeof rootReducer>;
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(...middlewares));
 
 export default store;

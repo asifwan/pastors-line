@@ -1,16 +1,32 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import CustomModal from "../components/Modal";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../store";
 import { closeModal, openModal } from "../store/actions/modalActions";
-import { Modal } from "react-bootstrap";
+import { Modal, ListGroup } from "react-bootstrap";
+import Axios from "../utils/Axios";
 
 const AllContacts = () => {
+  const dispatch = useDispatch();
+  const [contacts, setContacts] = useState<any>([]);
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     dispatch(openModal("modalA"));
+    (async () => {
+      setLoading(true);
+      Axios.get("/contacts.json?companyId=560")
+        .then((response: any) => {
+          setContacts(response?.data);
+          setLoading(false);
+        })
+        .catch((err: any) => {
+          setLoading(false);
+          console.log(err);
+        });
+    })();
   }, []);
-  const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.modals["modalA"]);
+  const even = useSelector((state: RootState) => state.modals.even);
   return (
     <CustomModal
       CloseBtnVariant="primary"
@@ -22,14 +38,34 @@ const AllContacts = () => {
           All Contacts
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-      </Modal.Body>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <Modal.Body>
+          <h4>Contacts</h4>
+          <ListGroup>
+            {contacts?.contacts_ids
+              ?.filter((filteredContact: any, index: number) => {
+                if (!even) {
+                  return true;
+                } else if (even && index % 2 === 1) {
+                  return true;
+                }
+              })
+              .map((contactId: any, index: number) => (
+                <Fragment key={contactId}>
+                  <ListGroup.Item>
+                    {contacts?.contacts[contactId]?.first_name}{" "}
+                    {contacts?.contacts[contactId]?.last_name}
+                  </ListGroup.Item>
+                  <ListGroup.Item key={contactId}>
+                    {contacts?.contacts[contactId]?.full_phone_number}
+                  </ListGroup.Item>
+                </Fragment>
+              ))}
+          </ListGroup>
+        </Modal.Body>
+      )}
     </CustomModal>
   );
 };

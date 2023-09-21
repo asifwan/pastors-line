@@ -2,16 +2,19 @@ import {
   OPEN_MODAL,
   CLOSE_MODAL,
   ModalActionTypes,
+  TOGGLE_EVEN,
 } from "../actions/modalActions";
 
 interface ModalState {
   modalA: boolean;
   modalB: boolean;
+  even: boolean;
 }
 
 const initialState: ModalState = {
   modalA: false,
   modalB: false,
+  even: false,
 };
 
 const modalReducer = (
@@ -23,6 +26,8 @@ const modalReducer = (
       return { ...state, [action.payload.modalName]: true };
     case CLOSE_MODAL:
       return { ...state, [action.payload.modalName]: false };
+    case TOGGLE_EVEN:
+      return { ...state, even: action.payload.on };
     default:
       return state;
   }

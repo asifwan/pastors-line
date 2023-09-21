@@ -4,6 +4,9 @@ import Modal from "react-bootstrap/Modal";
 import { Link } from "react-router-dom";
 import { routes } from "../../constants/routes.constants";
 import { Form } from "react-bootstrap";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../store";
+import { toggleEven } from "../../store/actions/modalActions";
 
 interface ICustomModal {
   show: boolean;
@@ -18,6 +21,8 @@ function CustomModal({
   CloseBtnVariant,
   children,
 }: ICustomModal) {
+  const dispatch = useDispatch();
+  const even = useSelector((state: RootState) => state.modals.even);
   return (
     <Modal
       show={show}
@@ -28,7 +33,15 @@ function CustomModal({
     >
       {children}
       <Modal.Footer>
-        <Form.Check type="switch" id="custom-switch" label="Only even" />
+        <Form.Check
+          type="switch"
+          id="custom-switch"
+          label="Only even"
+          checked={even}
+          onClick={() => {
+            dispatch(toggleEven(!even));
+          }}
+        />
         <div>
           <Link to={routes.AllContact}>
             <Button variant="primary" className="m-1">
