@@ -1,14 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 interface ICustomModal {
   show: boolean;
   onHide: any;
+  btnVariant: "primary" | "secondary";
 }
 
-function CustomModal({ show, onHide }: ICustomModal) {
-  const [modalShow, setModalShow] = useState(false);
+function CustomModal({ show, onHide, btnVariant }: ICustomModal) {
   return (
     <Modal
       show={show}
@@ -31,7 +31,9 @@ function CustomModal({ show, onHide }: ICustomModal) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
+        <Button variant={btnVariant} onClick={onHide}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );

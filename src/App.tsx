@@ -9,14 +9,22 @@ function App() {
   const [showModalB, setShowModalB] = useState(false);
   return (
     <div className="App">
-      <Button variant="outline-primary" onClick={() => setShowModalA(true)}>
-        Primary
+      <Button variant="primary" onClick={() => setShowModalA(true)}>
+        All Contacts
       </Button>{" "}
-      <Button variant="outline-secondary" onClick={() => setShowModalB(true)}>
-        Secondary
+      <Button variant="secondary" onClick={() => setShowModalB(true)}>
+        US Contacts
       </Button>{" "}
-      <CustomModal show={showModalA} onHide={() => setShowModalA(false)} />
-      <CustomModal show={showModalB} onHide={() => setShowModalB(false)} />
+      <CustomModal
+        btnVariant="primary"
+        show={showModalA}
+        onHide={() => setShowModalA(false)}
+      />
+      <CustomModal
+        btnVariant="secondary"
+        show={showModalB}
+        onHide={() => setShowModalB(false)}
+      />
     </div>
   );
 }

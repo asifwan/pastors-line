@@ -13,9 +13,20 @@ code {
 }
 
 
-.btn-outline-primary{
-  background-color: red;
+.btn-primary{
+  background-color: #46139f;
+  border: none;
+
+  &:hover{
+    background-color: #46139f;
+    opacity: .9;
+  }
 }
 .btn-secondary{
-  background-color: red;
+  background-color: #ff7f50;
+  border: none;
+  &:hover{
+    background-color: #ff7f50;
+    opacity: .9;
+  }
 }
