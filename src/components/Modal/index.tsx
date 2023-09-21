@@ -5,10 +5,10 @@ import Modal from "react-bootstrap/Modal";
 interface ICustomModal {
   show: boolean;
   onHide: any;
-  btnVariant: "primary" | "secondary";
+  CloseBtnVariant: "primary" | "secondary";
 }
 
-function CustomModal({ show, onHide, btnVariant }: ICustomModal) {
+function CustomModal({ show, onHide, CloseBtnVariant }: ICustomModal) {
   return (
     <Modal
       show={show}
@@ -31,7 +31,7 @@ function CustomModal({ show, onHide, btnVariant }: ICustomModal) {
         </p>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant={btnVariant} onClick={onHide}>
+        <Button variant={CloseBtnVariant} onClick={onHide}>
           Close
         </Button>
       </Modal.Footer>
