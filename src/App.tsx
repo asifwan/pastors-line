@@ -9,6 +9,7 @@ import AllContacts from "./pages/AllContacts";
 import NotFoundPage from "./pages/NotFound";
 
 function App() {
+  console.log(process.env);
   return (
     <div className="App">
       <Router>
