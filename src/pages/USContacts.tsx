@@ -9,6 +9,7 @@ import Axios from "../utils/Axios";
 const USContacts = () => {
   const [contacts, setContacts] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [modalC, setModalC] = useState(false);
   useEffect(() => {
     dispatch(openModal("modalB"));
     (async () => {
@@ -42,6 +43,8 @@ const USContacts = () => {
         <h4>Contacts</h4>
         {loading ? (
           <div>Loading...</div>
+        ) : modalC ? (
+          <div>Contact info</div>
         ) : (
           <ListGroup>
             {contacts?.contacts_ids
@@ -53,7 +56,11 @@ const USContacts = () => {
                 }
               })
               .map((contactId: any, index: number) => (
-                <Fragment key={contactId}>
+                <div
+                  key={contactId}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setModalC(true)}
+                >
                   <ListGroup.Item>
                     {contacts?.contacts[contactId]?.first_name}{" "}
                     {contacts?.contacts[contactId]?.last_name}
@@ -61,7 +68,7 @@ const USContacts = () => {
                   <ListGroup.Item key={contactId}>
                     {contacts?.contacts[contactId]?.full_phone_number}
                   </ListGroup.Item>
-                </Fragment>
+                </div>
               ))}
           </ListGroup>
         )}

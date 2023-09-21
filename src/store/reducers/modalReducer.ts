@@ -8,12 +8,14 @@ import {
 interface ModalState {
   modalA: boolean;
   modalB: boolean;
+  modalC: boolean;
   even: boolean;
 }
 
 const initialState: ModalState = {
   modalA: false,
   modalB: false,
+  modalC: false,
   even: false,
 };
 

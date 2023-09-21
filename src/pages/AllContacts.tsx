@@ -10,6 +10,7 @@ const AllContacts = () => {
   const dispatch = useDispatch();
   const [contacts, setContacts] = useState<any>([]);
   const [loading, setLoading] = useState(false);
+  const [modalC, setModalC] = useState(false);
   useEffect(() => {
     dispatch(openModal("modalA"));
     (async () => {
@@ -43,27 +44,35 @@ const AllContacts = () => {
       ) : (
         <Modal.Body>
           <h4>Contacts</h4>
-          <ListGroup>
-            {contacts?.contacts_ids
-              ?.filter((filteredContact: any, index: number) => {
-                if (!even) {
-                  return true;
-                } else if (even && index % 2 === 1) {
-                  return true;
-                }
-              })
-              .map((contactId: any, index: number) => (
-                <Fragment key={contactId}>
-                  <ListGroup.Item>
-                    {contacts?.contacts[contactId]?.first_name}{" "}
-                    {contacts?.contacts[contactId]?.last_name}
-                  </ListGroup.Item>
-                  <ListGroup.Item key={contactId}>
-                    {contacts?.contacts[contactId]?.full_phone_number}
-                  </ListGroup.Item>
-                </Fragment>
-              ))}
-          </ListGroup>
+          {modalC ? (
+            <div>Contact info</div>
+          ) : (
+            <ListGroup>
+              {contacts?.contacts_ids
+                ?.filter((filteredContact: any, index: number) => {
+                  if (!even) {
+                    return true;
+                  } else if (even && index % 2 === 1) {
+                    return true;
+                  }
+                })
+                .map((contactId: any, index: number) => (
+                  <div
+                    key={contactId}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => setModalC(true)}
+                  >
+                    <ListGroup.Item>
+                      {contacts?.contacts[contactId]?.first_name}{" "}
+                      {contacts?.contacts[contactId]?.last_name}
+                    </ListGroup.Item>
+                    <ListGroup.Item key={contactId}>
+                      {contacts?.contacts[contactId]?.full_phone_number}
+                    </ListGroup.Item>
+                  </div>
+                ))}
+            </ListGroup>
+          )}
         </Modal.Body>
       )}
     </CustomModal>
