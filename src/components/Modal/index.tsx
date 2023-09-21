@@ -1,14 +1,23 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { Link } from "react-router-dom";
+import { routes } from "../../constants/routes.constants";
+import { Form } from "react-bootstrap";
 
 interface ICustomModal {
   show: boolean;
   onHide: any;
   CloseBtnVariant: "primary" | "secondary";
+  children: JSX.Element[] | JSX.Element;
 }
 
-function CustomModal({ show, onHide, CloseBtnVariant }: ICustomModal) {
+function CustomModal({
+  show,
+  onHide,
+  CloseBtnVariant,
+  children,
+}: ICustomModal) {
   return (
     <Modal
       show={show}
@@ -17,23 +26,24 @@ function CustomModal({ show, onHide, CloseBtnVariant }: ICustomModal) {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
-      <Modal.Header closeButton>
-        <Modal.Title id="contained-modal-title-vcenter">
-          Modal heading
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <h4>Centered Modal</h4>
-        <p>
-          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-          consectetur ac, vestibulum at eros.
-        </p>
-      </Modal.Body>
+      {children}
       <Modal.Footer>
-        <Button variant={CloseBtnVariant} onClick={onHide}>
-          Close
-        </Button>
+        <Form.Check type="switch" id="custom-switch" label="Only even" />
+        <div>
+          <Link to={routes.AllContact}>
+            <Button variant="primary" className="m-1">
+              All Contact
+            </Button>
+          </Link>
+          <Link to={routes.USContacts}>
+            <Button variant="secondary" className="m-1">
+              US Contacts
+            </Button>
+          </Link>
+          <Button variant={CloseBtnVariant} onClick={onHide}>
+            Close
+          </Button>
+        </div>
       </Modal.Footer>
     </Modal>
   );
